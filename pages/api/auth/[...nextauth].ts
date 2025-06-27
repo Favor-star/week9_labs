@@ -1,4 +1,4 @@
-import NextAuth from "next-auth";
+import NextAuth, { DefaultSession } from "next-auth";
 
 import CredentialsProvider from "next-auth/providers/credentials";
 import { loginSchema } from "@/schemas";
@@ -46,17 +46,20 @@ export default NextAuth({
         token.id = user.id;
         token.email = user.email;
         token.name = user.name;
+        token.role = user.email?.includes("@gmail.com") ? "user" : "admin";
       }
       return token;
     },
     async session({ session, token }) {
       console.log(session);
       if (session.user) {
-        session.user.id = token.id;
         session.user.name = token.name;
         session.user.email = token.email;
+        session.user.id = String(token.id ?? "");
+        session.user.role = String(token.role ?? "");
       }
       return session;
     },
+    
   },
 });
