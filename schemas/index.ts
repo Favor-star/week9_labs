@@ -23,3 +23,14 @@ export const signUpSchema = z
 export type SignUpSchemaProps = z.infer<typeof signUpSchema> & {
   confirmPassword?: string;
 };
+
+export const loginSchema = z.object({
+  email: z
+    .string()
+    .min(1, { message: "Email is required" })
+    .email({ message: "Email is not valid" }),
+  password: z.string().min(1, {
+    message: "Password is required",
+  }),
+});
+export type LoginSchemaProps = z.infer<typeof loginSchema>;

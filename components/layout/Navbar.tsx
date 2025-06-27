@@ -27,7 +27,7 @@ export const Navbar = () => {
             </li>
             <li>
               <Link href={"/login"}>
-                <Button classname="bg-gray text-black">Login</Button>
+                <Button className="bg-gray text-black">Login</Button>
               </Link>
             </li>
           </ul>

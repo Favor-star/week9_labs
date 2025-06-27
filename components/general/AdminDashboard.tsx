@@ -1,6 +1,9 @@
+import { useSession } from "next-auth/react";
 import React from "react";
 
 export const AdminDashboard = () => {
+  const { data: session } = useSession();
+  console.log(session);
   return (
     <section className="w-full max-w-screen-lg ">
       <p className="text-base text-black/50 mb-5">

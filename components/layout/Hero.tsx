@@ -18,7 +18,7 @@ export const Hero = () => {
         </p>
         <div className="flex gap-3 mx-auto w-fit">
           <Button>Register</Button>
-          <Button classname="bg-gray text-black">Login</Button>
+          <Button className="bg-gray text-black">Login</Button>
         </div>
       </div>
     </div>
