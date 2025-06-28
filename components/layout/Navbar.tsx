@@ -4,9 +4,11 @@ import { Menu } from "lucide-react";
 import { Button } from "../ui/Button";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 export const Navbar = () => {
   const path = usePathname();
-  console.log(path);
+  const { data } = useSession();
+  const imagePath = (data && data.user.image) ?? "/avatar.gif";
   const isNormaPath = path === "/" || path === "/login" || path === "/register";
   return (
     <section className="w-full py-3 border-b-2 border-b-gray text-black mx-auto block">
@@ -39,7 +41,7 @@ export const Navbar = () => {
             <li>Settings</li>
             <li>
               <Image
-                src="/avatar.gif"
+                src={imagePath}
                 alt="Avatar placeholder"
                 width={50}
                 height={50}

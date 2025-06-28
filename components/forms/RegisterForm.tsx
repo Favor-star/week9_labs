@@ -97,7 +97,7 @@ export const RegisterForm = () => {
       >
         Already have an account? Sign In
       </Link>
-      <p className="w-full text-center text-lg text-black/50">or</p>
+      {/* <p className="w-full text-center text-lg text-black/50">or</p>
       <Button className="bg-gray text-black w-full py-3">
         <Image
           src={"/google-fill.svg"}
@@ -111,7 +111,7 @@ export const RegisterForm = () => {
       <Button className="bg-gray text-black w-full py-3">
         <Github />
         Sign up with github
-      </Button>
+      </Button> */}
     </form>
   );
 };

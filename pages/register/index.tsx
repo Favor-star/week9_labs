@@ -1,5 +1,24 @@
 import { RegisterForm } from "@/components/forms/RegisterForm";
-import React from "react";
+import { GetServerSidePropsContext } from "next";
+import { getServerSession } from "next-auth";
+import authOptions from "@/pages/api/auth/[...nextauth]";
+
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
+  const session = await getServerSession(context.req, context.res, authOptions);
+  if (session) {
+    return {
+      redirect: {
+        destination: "/dashboard",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
+};
 
 const Register = () => {
   return (

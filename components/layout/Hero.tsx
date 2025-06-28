@@ -1,4 +1,5 @@
-import {Button} from "../ui/Button";
+import Link from "next/link";
+import { Button } from "../ui/Button";
 
 export const Hero = () => {
   return (
@@ -17,11 +18,14 @@ export const Hero = () => {
           Your friendly dashboard
         </p>
         <div className="flex gap-3 mx-auto w-fit">
-          <Button>Register</Button>
-          <Button className="bg-gray text-black">Login</Button>
+          <Link href={"/register"}>
+            <Button>Register</Button>
+          </Link>
+          <Link href={"/login"}>
+            <Button className="bg-gray text-black">Login</Button>
+          </Link>
         </div>
       </div>
     </div>
   );
 };
-
