@@ -3,15 +3,22 @@ import { getServerSession } from "next-auth";
 import React from "react";
 import authOptions from "@/pages/api/auth/[...nextauth]";
 import { GetServerSidePropsContext } from "next";
+import { Session } from "next-auth";
 
 export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const session = await getServerSession(context.req, context.res, authOptions);
-  if (session) {
+  const session = (await getServerSession(
+    context.req,
+    context.res,
+    authOptions
+  )) as Session | null;
+  if (session?.user) {
+    // Redirect based on user role
+    const destination = session.user.role === "admin" ? "/admin" : "/dashboard";
     return {
       redirect: {
-        destination: "/dashboard",
+        destination,
         permanent: false,
       },
     };

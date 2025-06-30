@@ -29,13 +29,13 @@ export const LoginForm = () => {
     const result = await signIn("credentials", {
       email,
       password,
-      redirect: false,
+      callbackUrl: "/dashboard", // This will be processed by the redirect callback
     });
     if (result?.error) {
       setError("root", { message: result.error });
       return;
     }
-    router.push("/dashboard");
+    // NextAuth will handle the redirect
   };
 
   return (

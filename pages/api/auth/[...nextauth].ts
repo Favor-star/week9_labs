@@ -58,7 +58,7 @@ export default NextAuth({
         token.email = user.email;
         token.name = user.name;
         token.role = user.email?.includes("@gmail.com") ? "user" : "admin";
-       
+
         // // Handle GitHub provider specifically
         // if (account?.provider === "github") {
         //   token.githubId = user.id;
@@ -76,8 +76,7 @@ export default NextAuth({
         session.user.role = String(token.role ?? "");
 
         // // Add GitHub-specific data to session
-        // if (token.avatar_url) {
-        //   session.user.image = String(token.avatar_url);
+        // if (token.avatar_url) {        //   session.user.image = String(token.avatar_url);
         // }
         // if (token.login) {
         //   session.user.login = String(token.login);
@@ -86,9 +85,13 @@ export default NextAuth({
       return session;
     },
     async redirect({ url, baseUrl }) {
+      // Handle relative URLs
       if (url.startsWith("/")) return `${baseUrl}${url}`;
+      // Handle absolute URLs that start with baseUrl
       if (url.startsWith(baseUrl)) return url;
-      return `${baseUrl}/dashboard`; // fallback default
+
+      // Default redirect - middleware will handle role-based routing
+      return `${baseUrl}/dashboard`;
     },
   },
 });
