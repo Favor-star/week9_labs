@@ -5,23 +5,23 @@ import { Button } from "../ui/Button";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
+import { SignOut } from "../general/SignOut";
 export const Navbar = () => {
   const path = usePathname();
   const { data } = useSession();
   const imagePath = (data && data.user.image) ?? "/avatar.gif";
   const isNormaPath = path === "/" || path === "/login" || path === "/register";
+
   return (
     <section className="w-full py-3 border-b-2 border-b-gray text-black mx-auto block">
       <nav className="max-w-screen-xl w-full mx-auto flex justify-between items-center">
-        <h3 className="text-lg md:text-2xl font-bold">Acme Co</h3>
-        {isNormaPath && (
+        <Link href={"/"}>
+          <h3 className="text-lg md:text-2xl font-bold cursor-pointer">
+            Acme Co
+          </h3>
+        </Link>
+        {isNormaPath && data === null && (
           <ul className=" flex-row gap-3 items-center justify-end hidden md:flex">
-            <li>
-              <Link href={"/about"}>About</Link>
-            </li>
-            <li>
-              <Link href={"/about"}>Register</Link>
-            </li>
             <li>
               <Link href={"/register"}>
                 <Button>Register</Button>
@@ -34,11 +34,24 @@ export const Navbar = () => {
             </li>
           </ul>
         )}
-        {!isNormaPath && (
-          <ul className="flex gap-5 items-center justify-end text-lg">
-            <li>Home</li>
-            <li>Profile</li>
-            <li>Settings</li>
+        {data !== null && path === "/" && (
+          <ul className=" gap-5 items-center justify-end  hidden md:flex">
+            <li>
+              <Link
+                className="bg-gray p-2 rounded-lg border border-black/20"
+                href={"/dashboard"}
+              >
+                {" "}
+                Dashboard
+              </Link>
+            </li>
+          </ul>
+        )}
+        {(path === "/dashboard" || path === "/admin") && (
+          <ul className=" gap-5 items-center justify-end  hidden md:flex">
+            <li>
+              <SignOut />
+            </li>
             <li>
               <Image
                 src={imagePath}
